@@ -10,7 +10,7 @@ const AddStudent = () => {
     image: null,
   });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();  // Hook to navigate after successful form submission
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.name === "image") {
@@ -34,7 +34,7 @@ const AddStudent = () => {
       await axios.post("http://localhost:5001/api/students/add", data);
       setFormData({ name: "", age: "", status: "Active", image: null });
       alert("Student Added Successfully");
-      navigate("/students/list"); // Navigate to the students list page after success
+      navigate("/students/list");
     } catch (error) {
       console.error("Error saving student", error);
       alert("Error adding student");
@@ -44,10 +44,10 @@ const AddStudent = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-semibold mb-4">Add Student</h1>
+    <div>
+      <h1>Add Student</h1>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-4">
+        <div>
           <input
             type="text"
             name="name"
@@ -55,7 +55,6 @@ const AddStudent = () => {
             onChange={handleChange}
             placeholder="Student Name"
             required
-            className="border p-2 rounded"
           />
           <input
             type="number"
@@ -64,36 +63,31 @@ const AddStudent = () => {
             onChange={handleChange}
             placeholder="Age"
             required
-            className="border p-2 rounded"
           />
           <select
             name="status"
             value={formData.status}
             onChange={handleChange}
-            className="border p-2 rounded"
           >
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
-          <div className="flex items-center">
+          <div>
             <input
               type="file"
               name="image"
               onChange={handleChange}
-              className="border p-2 rounded"
             />
             {formData.image && (
               <img
                 src={URL.createObjectURL(formData.image)}
                 alt="preview"
-                className="w-10 h-10 ml-2 rounded-full"
               />
             )}
           </div>
         </div>
         <button
           type="submit"
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           disabled={loading}
         >
           {loading ? "Saving..." : "Add Student"}

@@ -27,7 +27,7 @@ const ListStudents = () => {
         studentId: studentId, 
         status: newStatus 
       });
-      fetchStudents();  // Refresh the list after status change
+      fetchStudents();
     } catch (error) {
       console.error("Error toggling student status", error);
     }
@@ -36,7 +36,7 @@ const ListStudents = () => {
   const handleDelete = async (studentId) => {
     try {
       await axios.post(`http://localhost:5001/api/students/remove`, { id: studentId });
-      fetchStudents();  // Refresh the list after deletion
+      fetchStudents();
     } catch (error) {
       console.error("Error deleting student", error);
     }
@@ -47,57 +47,49 @@ const ListStudents = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-semibold mb-4">Student List</h1>
-      <table className="w-full border-collapse border">
+    <div>
+      <h1>Student List</h1>
+      <table>
         <thead>
-          <tr className="bg-gray-200">
-            <th className="border p-2">Image</th>
-            <th className="border p-2">Name</th>
-            <th className="border p-2">Age</th>
-            <th className="border p-2">Status</th>
-            <th className="border p-2">Actions</th>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {students.length > 0 ? (
             students.map((student) => (
-              <tr key={student._id} className="border">
-                <td className="border p-2">
+              <tr key={student._id}>
+                <td>
                   {student.image ? (
                     <img
                       src={`http://localhost:5001/images/${student.image}`}
                       alt="student"
-                      className="w-10 h-10 rounded-full"
                     />
                   ) : (
                     "No Image"
                   )}
                 </td>
-                <td className="border p-2">{student.name}</td>
-                <td className="border p-2">{student.age}</td>
-                <td className="border p-2">
+                <td>{student.name}</td>
+                <td>{student.age}</td>
+                <td>
                   <button
-                    className={`px-3 py-1 rounded ${
-                      student.status === "Active"
-                        ? "bg-green-500 text-white"
-                        : "bg-gray-500 text-white"
-                    }`}
                     onClick={() => handleStatusToggle(student._id, student.status)}
                   >
                     {student.status}
                   </button>
                 </td>
-                <td className="border p-2 flex gap-2">
+                <td>
                   <button
                     onClick={() => handleEdit(student._id)}
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(student._id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                   >
                     Delete
                   </button>
@@ -106,7 +98,7 @@ const ListStudents = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="5" className="text-center p-4">
+              <td colSpan="5">
                 No students found.
               </td>
             </tr>
