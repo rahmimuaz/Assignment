@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 import axios from "axios";
 
 const LoginPage = () => { 
     const { url, setToken } = useContext(StoreContext);
+    const navigate = useNavigate();  // Hook for navigation
     const [currState, setCurrentState] = useState("Login");
     const [data, setData] = useState({ name: "", email: "", password: "" });
     const [user, setUser] = useState(null);
@@ -15,6 +16,7 @@ const LoginPage = () => {
             .get('http://localhost:5001/auth/login/success', { withCredentials: true })
             .then((response) => {
                 setUser(response.data.user);
+                navigate('/students'); // Redirect if user is authenticated via Google
             })
             .catch(() => {
                 setErrorMessage('Not authenticated');
@@ -48,6 +50,8 @@ const LoginPage = () => {
                 }
     
                 localStorage.setItem("email", data.email);
+
+                navigate('/students'); // Navigate to StudentManagement page after login
             } else {
                 alert(response.data.message);
             }
