@@ -11,6 +11,7 @@ import OrderConfirmation from './pages/OrderConformation/OrderConfirmation';
 import UserOrders from './pages/UserOrders/Order'
 import UserQueries from './components/Inquiry/UserQueries';
 import EditInquiryForm from './components/Inquiry/EditInquiryForm';
+import Login from './components/Login/Login'
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -31,12 +32,12 @@ const App = () => {
 
   return (
     <div className='app'>
-      <Navbar setShowLogin={setShowLogin} token ={token} /> 
+
 
       {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
 
       <Routes>
-        <Route path='/' element={<StudentManagement />} />
+        <Route path='/' element={<Login />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/card' element={<Card />} />
         <Route path='/order' element={<PlaceOrder />} />

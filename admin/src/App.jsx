@@ -44,6 +44,7 @@ import EmployeeLogin from "./pages/EmployeeLogin/EmployeeLogin";
 // Student Management page
 import StudentManagement from "./pages/StudentManagement/StudentManagement";
 
+import Login from '../../frontend/src/components/Login/Login';
 const App = () => {
   return (
     <div>
@@ -51,7 +52,7 @@ const App = () => {
       <hr />
       <div className="app-content">
         <Routes>
-          <Route path="/" element={<EmployeeLogin />} />
+          <Route path="/" element={<Login />} />
           <Route path="/add" element={<Add />} />
           <Route path="/list" element={<List />} />
           <Route path="/orders" element={<Orders />} />
