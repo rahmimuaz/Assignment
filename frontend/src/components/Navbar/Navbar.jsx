@@ -1,9 +1,8 @@
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
-import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 import { Link } from 'react-router-dom';
-import microphone_icon from '../../assets/microphone.png';
+
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = SpeechRecognition ? new SpeechRecognition() : null;
