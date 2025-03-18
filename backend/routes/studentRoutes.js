@@ -16,10 +16,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Routes
 studentRouter.post("/add", upload.single("image"), addStudent);
 studentRouter.get("/list", listStudents);
 studentRouter.post("/remove", removeStudent);
-studentRouter.post("/update", updateStudent);
-studentRouter.post("/change-status", changeStudentStatus);
+studentRouter.put("/edit/:id", upload.single("image"), updateStudent);  // Updated to PUT with ID
+studentRouter.put("/change-status", changeStudentStatus);
 
 export default studentRouter;
