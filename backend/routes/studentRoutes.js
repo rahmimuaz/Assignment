@@ -3,8 +3,6 @@ import { addStudent, listStudents, removeStudent, updateStudent, changeStudentSt
 import multer from "multer";
 
 const studentRouter = express.Router();
-
-// Image storage engine
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -15,7 +13,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
 studentRouter.post("/add", upload.single("image"), addStudent);
 studentRouter.get("/list", listStudents);
 studentRouter.post("/remove", removeStudent);
