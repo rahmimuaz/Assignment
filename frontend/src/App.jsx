@@ -6,6 +6,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import AddStudent from "./pages/StudentManagement/AddStudent";
 import ListStudents from "./pages/StudentManagement/ListStudents";
 import EditStudent from './pages/StudentManagement/EditStudent';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
+
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);

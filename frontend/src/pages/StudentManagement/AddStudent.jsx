@@ -43,56 +43,79 @@ const AddStudent = () => {
     }
   };
 
+  const handleNavigateToList = () => {
+    navigate("/students/list");
+  };
+
   return (
-    <div>
+    <div className="container mt-4">
       <h1>Add Student</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="mt-3">
+        <div className="mb-3">
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
+            className="form-control"
             placeholder="Student Name"
             required
           />
+        </div>
+        <div className="mb-3">
           <input
             type="number"
             name="age"
             value={formData.age}
             onChange={handleChange}
+            className="form-control"
             placeholder="Age"
             required
           />
+        </div>
+        <div className="mb-3">
           <select
             name="status"
             value={formData.status}
             onChange={handleChange}
+            className="form-select"
           >
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
-          <div>
-            <input
-              type="file"
-              name="image"
-              onChange={handleChange}
-            />
-            {formData.image && (
+        </div>
+        <div className="mb-3">
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            className="form-control"
+          />
+          {formData.image && (
+            <div className="mt-3">
               <img
                 src={URL.createObjectURL(formData.image)}
                 alt="preview"
+                className="img-fluid"
+                style={{ maxHeight: "200px", objectFit: "cover" }}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
         <button
           type="submit"
+          className="btn btn-primary w-100"
           disabled={loading}
         >
           {loading ? "Saving..." : "Add Student"}
         </button>
       </form>
+      <button
+        className="btn btn-secondary w-100 mt-3"
+        onClick={handleNavigateToList}
+      >
+        Go to Student List
+      </button>
     </div>
   );
 };

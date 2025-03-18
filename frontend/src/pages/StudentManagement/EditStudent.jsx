@@ -20,8 +20,8 @@ const EditStudent = () => {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/students/list`);
-        const student = res.data?.data.find(student => student._id === studentId);
+        const res = await axios.get(`http://localhost:5001/api/students/${studentId}`);
+        const student = res.data?.data;
         if (student) {
           setFormData({
             name: student.name,
@@ -70,37 +70,40 @@ const EditStudent = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h1>Edit Student</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
+        <div className="mb-3">
+          <label className="form-label">Name</label>
           <input
             type="text"
             name="name"
             value={formData.name || ''}
             onChange={handleChange}
+            className="form-control"
             required
           />
         </div>
 
-        <div>
-          <label>Age</label>
+        <div className="mb-3">
+          <label className="form-label">Age</label>
           <input
             type="number"
             name="age"
             value={formData.age || ''}
             onChange={handleChange}
+            className="form-control"
             required
           />
         </div>
 
-        <div>
-          <label>Status</label>
+        <div className="mb-3">
+          <label className="form-label">Status</label>
           <select
             name="status"
             value={formData.status || 'Active'}
             onChange={handleChange}
+            className="form-select"
             required
           >
             <option value="Active">Active</option>
@@ -108,26 +111,33 @@ const EditStudent = () => {
           </select>
         </div>
 
-        <div>
-          <label>Image</label>
+        <div className="mb-3">
+          <label className="form-label">Image</label>
           <input
             type="file"
             name="image"
             onChange={handleChange}
+            className="form-control"
           />
           {formData.imageUrl && (
-            <img src={`http://localhost:5001/images/${formData.imageUrl}`} alt="Student" />
+            <div className="mt-3">
+              <img
+                src={`http://localhost:5001/images/${formData.imageUrl}`}
+                alt="Student"
+                className="img-fluid"
+                style={{ maxHeight: "200px", objectFit: "cover" }}
+              />
+            </div>
           )}
         </div>
 
-        <div>
-          <button
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Updating..." : "Update Student"}
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="btn btn-primary w-100"
+          disabled={loading}
+        >
+          {loading ? "Updating..." : "Update Student"}
+        </button>
       </form>
     </div>
   );

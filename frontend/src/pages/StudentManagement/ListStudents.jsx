@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ListStudents = () => {
   const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,6 +18,8 @@ const ListStudents = () => {
     } catch (error) {
       console.error("Error fetching students", error);
       setStudents([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,28 +49,59 @@ const ListStudents = () => {
     navigate(`/students/edit/${studentId}`, { state: { studentId } });
   };
 
+
+  const handleLogout = () => {
+
+    localStorage.removeItem('authToken'); 
+    navigate('/'); 
+  };
+
+
+  const handleAddStudent = () => {
+    navigate("/students/add");
+  };
+
+  if (loading) {
+    return <div>Loading students...</div>;
+  }
+
   return (
-    <div>
+    <div className="container mt-4">
       <h1>Student List</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.length > 0 ? (
-            students.map((student) => (
+      <button
+        className="btn btn-primary mb-4"
+        onClick={handleAddStudent}
+      >
+        Add Student
+      </button>
+      <button
+        className="btn btn-danger mb-4 ms-2"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+      {students.length === 0 ? (
+        <p>No students found.</p>
+      ) : (
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {students.map((student) => (
               <tr key={student._id}>
                 <td>
                   {student.image ? (
                     <img
                       src={`http://localhost:5001/images/${student.image}`}
                       alt="student"
+                      style={{ maxHeight: "50px", objectFit: "cover" }}
                     />
                   ) : (
                     "No Image"
@@ -77,6 +111,9 @@ const ListStudents = () => {
                 <td>{student.age}</td>
                 <td>
                   <button
+                    className={`btn ${
+                      student.status === 'Active' ? 'btn-darkgreen' : 'btn-gray'
+                    }`}
                     onClick={() => handleStatusToggle(student._id, student.status)}
                   >
                     {student.status}
@@ -84,27 +121,23 @@ const ListStudents = () => {
                 </td>
                 <td>
                   <button
+                    className="btn btn-darkblue me-2"
                     onClick={() => handleEdit(student._id)}
                   >
                     Edit
                   </button>
                   <button
+                    className="btn btn-darkred"
                     onClick={() => handleDelete(student._id)}
                   >
                     Delete
                   </button>
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5">
-                No students found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

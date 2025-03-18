@@ -16,7 +16,7 @@ a{
 }
 
 .app{
-  width: 80%;
+
   margin: auto;
 
 }
@@ -29,4 +29,48 @@ a{
     opacity: 1;
   }
   
+}
+
+
+.btn-darkgreen {
+  background-color: #006400;
+  color: white;
+}
+
+.btn-darkgreen:hover {
+  background-color: #004d00; 
+}
+
+.btn-gray {
+  background-color: #808080; 
+  color: white;
+}
+
+.btn-gray:hover {
+  background-color: #5e5e5e;
+}
+
+.btn-darkblue {
+  background-color: #0303be; 
+  color: white;
+}
+
+.btn-darkblue:hover {
+  background-color: #000066; 
+}
+
+.btn-darkred {
+  background-color: #8b0000;
+  color: white;
+}
+
+.btn-darkred:hover {
+  background-color: #660000; 
+}
+
+.login-page {
+  background-image: url('background.jpg'); 
+  background-size: cover; 
+  background-position: center center;
+  background-repeat: no-repeat; 
 }
